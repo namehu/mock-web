@@ -259,7 +259,7 @@ export default {
     left: 0;
     bottom: 0;
     z-index: 1;
-    background: url('/static/images/login.jpg') no-repeat;
+    background: url('/static/images/mock-bg.jpg') no-repeat;
   }
 
   .content {
