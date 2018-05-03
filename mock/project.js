@@ -41,6 +41,8 @@ module.exports = (app) => {
         if (reqFullUrl !== pathUrl) return next();
         // 判断query 是否一致
         if (!isSameQuery(req.query, path.query)) return next();
+        // POST 请求下判断参数是否一致
+        if (req.method === 'POST' && !isSameQuery(req.body, path.body)) return next();
 
         if (req.query.callback) {
           res.jsonp(path.mock(req));

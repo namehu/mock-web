@@ -7,6 +7,11 @@ const location = {
     {
       name: '/api/login',
       mock: m.login,
+      method: 'post',
+      body: {
+        username: '$$',
+        password: '$$',
+      }
     },
   ],
 };

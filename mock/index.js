@@ -1,8 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const project = require('./project');
 
 const app = express();
-const port = 8090;
+// 解析post请求中间件
+app.use(bodyParser.urlencoded({
+  extended: true,
+}))
+
+const port = 8091;
 
 project(app);
 
