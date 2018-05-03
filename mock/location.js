@@ -13,6 +13,15 @@ const location = {
         password: '$$',
       }
     },
+    {
+      name: '/api/register',
+      mock: m.register,
+      method: 'post',
+      body: {
+        userName: '$$',
+        password: '$$',
+      },
+    }
   ],
 };
 

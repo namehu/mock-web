@@ -32,6 +32,13 @@ export const login = (username, password) => {
 };
 
 // // 注册
-export const register = () => {
-
+export const register = (userName, password) => {
+  return handlerAxiosRequest({
+    method: 'post',
+    url: '/api/register',
+    data: {
+      userName,
+      password,
+    }
+  })
 };

@@ -22,7 +22,8 @@
           style="width:100%;">登录</el-button>
       </div>
       <div>
-        1.用户名不少于四位 2.密码不少于六位
+        <span>注册</span>/
+        <span>忘记密码?</span>
       </div>
     </div>
   </div>
