@@ -2,27 +2,33 @@
   <div class="login">
     <div class="background-image"></div>
     <div class="login-wrapper">
-      <div class="title">用户名</div>
+      <!--<div class="title">用户名</div>-->
       <div class="content">
         <el-input v-model="username"
           clearable
           placeholder="请输入用户名"></el-input>
       </div>
-      <div class="title">密码</div>
+      <!--<div class="title">密码</div>-->
       <div class="content">
         <el-input v-model="password"
           clearable
-          type="password"
-          placeholder="请输入密码"></el-input>
+          :type="inputType"
+          placeholder="请输入密码">
+          <i class="el-icon-view input-prefix-icon"
+             slot="prefix"
+             @click="handleIconClick">
+          </i>
+        </el-input>
       </div>
       <div>
         <el-button type="primary"
           :disabled="disabled"
+          :loading="loading"
           @click="login"
           style="width:100%;">登录</el-button>
       </div>
-      <div>
-        <span>注册</span>/
+      <div class="other-operation">
+        <span @click="$router.push('/register')">注册</span>/
         <span>忘记密码?</span>
       </div>
     </div>
@@ -38,7 +44,9 @@ export default {
     return {
       username: '',
       password: '',
-      disabled: true
+      disabled: true,
+      inputType: 'password',
+      loading: false,
     };
   },
   watch: {
@@ -62,13 +70,29 @@ export default {
         this.disabled = true;
       }
     },
+    handleIconClick() {
+      if (this.inputType === 'password') {
+        this.inputType = 'text';
+      } else {
+        this.inputType = 'password';
+      }
+    },
     login() {
+      this.loading = true;
       login(this.username, this.password)
         .then(res => {
-          console.log(res);
+          this.loading = false;
+          this.$notify({
+            // title: '成功',
+            message: '登录成功',
+            type: 'success',
+          });
+          if (data.code && data.code === 200) {
+//            this.$router.push('/home');
+          }
         })
         .catch(error => {
-          console.log(error);
+          this.loading = false;
         });
     }
   }
@@ -77,6 +101,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  @import "../config";
 .login {
   & > .background-image {
     position: absolute;
@@ -102,9 +127,41 @@ export default {
   & > .login-wrapper > .title,
   & > .login-wrapper > .content {
     font-size: 14px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+  }
+
+  .other-operation {
+    margin-top: 15px;
+    font-size: 12px;
+    text-align: right;
+
+    & > span {
+      cursor: pointer;
+      margin: 5px;
+
+      &:hover {
+        color: $blue;
+      }
+    }
   }
 }
 
 
+</style>
+
+<style lang="scss">
+
+  .login .el-input input {
+    background-color: rgba(255, 255, 255, 0);
+    color: #ffffff;
+    text-align: center;
+    /*box-shadow: 0 0px 2px #e4e4e4;*/
+  }
+
+  .login i.input-prefix-icon {
+    position: relative;
+    top: 12px;
+    font-size: 18px;
+    left: 3px;
+  }
 </style>

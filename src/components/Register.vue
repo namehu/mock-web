@@ -1,8 +1,9 @@
 <template>
   <div class="register">
     <div class="back-image"></div>
+    <Particles></Particles>
     <div class="content">
-      <div>用户名</div>
+      <!--<div>用户名</div>-->
       <div>
         <el-input v-model="userName"
           @focus="focusUserName"
@@ -12,7 +13,7 @@
           clearable
           placeholder="请输入用户名"></el-input>
       </div>
-      <div>密码</div>
+      <!--<div>密码</div>-->
       <div>
         <el-input v-model="password"
           @focus="focusPwd"
@@ -28,7 +29,7 @@
           </i>
         </el-input>
       </div>
-      <div>确认密码</div>
+      <!--<div>确认密码</div>-->
       <div>
         <el-input v-model="confirmPassword"
           @focus="focusConfirmPwd"
@@ -103,8 +104,10 @@
 
 <script>
 import { register } from '../api';
+import Particles from './Particles';
 
 export default {
+  components: { Particles },
   data() {
     return {
       //      disabled: true,
@@ -267,11 +270,11 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 3;
     width: 300px;
 
     & > div {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     & > div:nth-child(odd) {
@@ -296,9 +299,16 @@ export default {
 </style>
 
 <style lang="scss">
+
+.register .el-input input {
+  background-color: rgba(255, 255, 255, 0);
+  color: #ffffff;
+  text-align: center;
+  /*box-shadow: 0 0px 2px #e4e4e4;*/
+}
 .register .el-input.error {
   input {
-    border: 1px solid red;
+    border: 1px solid #f56c6c
   }
 }
 
