@@ -105,6 +105,7 @@
 <script>
 import { register } from '../api';
 import Particles from './Particles';
+import { getMd5 } from '../utils';
 
 export default {
   components: { Particles },
@@ -234,7 +235,7 @@ export default {
     },
     register() {
       this.loading = true;
-      register(this.userName, this.password).then(data => {
+      register(this.userName, getMd5(this.password)).then(data => {
         console.log(data);
         if (data.code && data.code === 200) {
           this.$notify({
@@ -242,9 +243,8 @@ export default {
             message: '注册成功',
             type: 'success',
           });
-          setTimeout(() => {
-            this.loading = false;
-          }, 2000);
+          this.loading = false;
+          this.$router.push('/');
         }
       });
     },
@@ -299,7 +299,6 @@ export default {
 </style>
 
 <style lang="scss">
-
 .register .el-input input {
   background-color: rgba(255, 255, 255, 0);
   color: #ffffff;
@@ -308,7 +307,7 @@ export default {
 }
 .register .el-input.error {
   input {
-    border: 1px solid #f56c6c
+    border: 1px solid #f56c6c;
   }
 }
 

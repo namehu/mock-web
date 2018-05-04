@@ -2,7 +2,11 @@ const mock = require('mockjs');
 
 exports.login = () => mock.mock({
   code: 200,
-  data: 'success',
+  data: {
+    name: '@cname',
+    eId: '@cid',
+  },
+  message: 'login success'
 });
 
 
