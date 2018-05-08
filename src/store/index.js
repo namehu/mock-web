@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    name,
     userInfo: {
       name: '',
       eId: '',
@@ -14,6 +15,9 @@ export default new Vuex.Store({
     UPDATE_USER_INFO(state, payload) {
       state.userInfo = Object.assign({}, state.userInfo, payload);
     },
+    UPDATE_NAME(state, payload) {
+      state.name = payload;
+    }
   },
   actions: {
   },

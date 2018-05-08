@@ -8,6 +8,9 @@
 import 'particles.js';
 
 export default {
+  props: {
+    data: String,
+  },
   data() {
     return {
       id: `particles-${parseInt(Math.random() * 10000, 10)}`,

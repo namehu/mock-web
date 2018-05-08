@@ -2,8 +2,8 @@
   <div class="register">
     <div class="back-image"></div>
     <Particles></Particles>
+    <Particles></Particles>
     <div class="content">
-      <!--<div>用户名</div>-->
       <div>
         <el-input v-model="userName"
           @focus="focusUserName"
@@ -13,7 +13,6 @@
           clearable
           placeholder="请输入用户名"></el-input>
       </div>
-      <!--<div>密码</div>-->
       <div>
         <el-input v-model="password"
           @focus="focusPwd"
@@ -29,7 +28,6 @@
           </i>
         </el-input>
       </div>
-      <!--<div>确认密码</div>-->
       <div>
         <el-input v-model="confirmPassword"
           @focus="focusConfirmPwd"
@@ -107,7 +105,9 @@ import { register } from '../api';
 import Particles from './Particles';
 
 export default {
-  components: { Particles },
+  components: {
+    Particles,
+  },
   data() {
     return {
       //      disabled: true,
@@ -156,9 +156,13 @@ export default {
     },
   },
   methods: {
+    hanldeFunction(param) {
+      console.log(param);
+    },
     initTip() {
       this.showUserTip = false;
       this.showPwdTip = false;
+      this.showConfirmPwdTip = false;
     },
     focusUserName() {
       this.initTip();
@@ -235,16 +239,12 @@ export default {
     register() {
       this.loading = true;
       register(this.userName, this.password).then(data => {
-        console.log(data);
         if (data.code && data.code === 200) {
           this.$notify({
-            // title: '成功',
             message: '注册成功',
             type: 'success',
           });
-          setTimeout(() => {
-            this.loading = false;
-          }, 2000);
+          this.loading = false;
         }
       });
     },
@@ -299,7 +299,6 @@ export default {
 </style>
 
 <style lang="scss">
-
 .register .el-input input {
   background-color: rgba(255, 255, 255, 0);
   color: #ffffff;
@@ -308,7 +307,7 @@ export default {
 }
 .register .el-input.error {
   input {
-    border: 1px solid #f56c6c
+    border: 1px solid #f56c6c;
   }
 }
 

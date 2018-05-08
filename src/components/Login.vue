@@ -15,8 +15,8 @@
           :type="inputType"
           placeholder="请输入密码">
           <i class="el-icon-view input-prefix-icon"
-             slot="prefix"
-             @click="handleIconClick">
+            slot="prefix"
+            @click="handleIconClick">
           </i>
         </el-input>
       </div>
@@ -55,7 +55,7 @@ export default {
     },
     password() {
       this.validInput();
-    }
+    },
   },
   methods: {
     validInput() {
@@ -88,20 +88,23 @@ export default {
             type: 'success',
           });
           if (res.code && res.code === 200) {
-            // c
+            this.$store.commit('UPDATE_USER_INFO', {
+              name: this.username,
+            });
+            this.$router.push('/');
           }
         })
         .catch(() => {
           this.loading = false;
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  @import "../config";
+@import '../config';
 .login {
   & > .background-image {
     position: absolute;
@@ -110,7 +113,7 @@ export default {
     left: 0;
     bottom: 0;
     z-index: 1;
-    background: url("/static/images/mock-bg.jpg") no-repeat;
+    background: url('/static/images/mock-bg.jpg') no-repeat;
   }
 
   & > .login-wrapper {
@@ -145,23 +148,20 @@ export default {
     }
   }
 }
-
-
 </style>
 
 <style lang="scss">
+.login .el-input input {
+  background-color: rgba(255, 255, 255, 0);
+  color: #ffffff;
+  text-align: center;
+  /*box-shadow: 0 0px 2px #e4e4e4;*/
+}
 
-  .login .el-input input {
-    background-color: rgba(255, 255, 255, 0);
-    color: #ffffff;
-    text-align: center;
-    /*box-shadow: 0 0px 2px #e4e4e4;*/
-  }
-
-  .login i.input-prefix-icon {
-    position: relative;
-    top: 12px;
-    font-size: 18px;
-    left: 3px;
-  }
+.login i.input-prefix-icon {
+  position: relative;
+  top: 12px;
+  font-size: 18px;
+  left: 3px;
+}
 </style>
