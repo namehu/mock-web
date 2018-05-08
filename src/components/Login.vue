@@ -87,11 +87,11 @@ export default {
             message: '登录成功',
             type: 'success',
           });
-          if (data.code && data.code === 200) {
-//            this.$router.push('/home');
+          if (res.code && res.code === 200) {
+            // c
           }
         })
-        .catch(error => {
+        .catch(() => {
           this.loading = false;
         });
     }
