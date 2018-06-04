@@ -50,6 +50,10 @@ module.exports = {
     'arrow-parens': 'off',
     'comma-dangle': 'off',
     'quotes': ["error", "single"],
-    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off',
+    "vue/no-parsing-error": [2, {
+      "x-invalid-end-tag": false
+    }]
+
   }
 }

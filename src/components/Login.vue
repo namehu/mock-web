@@ -2,30 +2,28 @@
   <div class="login">
     <div class="background-image"></div>
     <div class="login-wrapper">
-      <!--<div class="title">用户名</div>-->
       <div class="content">
-        <el-input v-model="username"
+        <Input v-model="username"
           clearable
-          placeholder="请输入用户名"></el-input>
+          placeholder="请输入用户名"></Input>
       </div>
-      <!--<div class="title">密码</div>-->
-      <div class="content">
-        <el-input v-model="password"
+      <div class="content"
+        style="position: relative;">
+        <Input v-model="password"
           clearable
           :type="inputType"
           placeholder="请输入密码">
-          <i class="el-icon-view input-prefix-icon"
-            slot="prefix"
-            @click="handleIconClick">
-          </i>
-        </el-input>
+        </Input>
+        <Icon :type="inputIcon"
+          class="icon-eye"
+          @click.native="handleIconClick"></Icon>
       </div>
       <div>
-        <el-button type="primary"
+        <Button type="primary"
           :disabled="disabled"
           :loading="loading"
           @click="login"
-          style="width:100%;">登录</el-button>
+          style="width:100%;height: 40px;">登录</Button>
       </div>
       <div class="other-operation">
         <span @click="$router.push('/register')">注册</span>/
@@ -46,6 +44,7 @@ export default {
       password: '',
       disabled: true,
       inputType: 'password',
+      inputIcon: 'ios-eye-outline',
       loading: false,
     };
   },
@@ -73,8 +72,10 @@ export default {
     handleIconClick() {
       if (this.inputType === 'password') {
         this.inputType = 'text';
+        this.inputIcon = 'ios-eye';
       } else {
         this.inputType = 'password';
+        this.inputIcon = 'ios-eye-outline';
       }
     },
     login() {
@@ -82,10 +83,8 @@ export default {
       login(this.username, this.password)
         .then(res => {
           this.loading = false;
-          this.$notify({
-            // title: '成功',
-            message: '登录成功',
-            type: 'success',
+          this.$Notice.success({
+            title: '登录成功',
           });
           if (res.code && res.code === 200) {
             this.$store.commit('UPDATE_USER_INFO', {
@@ -102,7 +101,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import '../config';
 .login {
@@ -133,6 +131,15 @@ export default {
     margin-bottom: 20px;
   }
 
+  .icon-eye {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    left: 10px;
+    cursor: pointer;
+  }
+
   .other-operation {
     margin-top: 15px;
     font-size: 12px;
@@ -151,17 +158,10 @@ export default {
 </style>
 
 <style lang="scss">
-.login .el-input input {
+.login .ivu-input-wrapper input {
   background-color: rgba(255, 255, 255, 0);
   color: #ffffff;
   text-align: center;
-  /*box-shadow: 0 0px 2px #e4e4e4;*/
-}
-
-.login i.input-prefix-icon {
-  position: relative;
-  top: 12px;
-  font-size: 18px;
-  left: 3px;
+  height: 40px;
 }
 </style>

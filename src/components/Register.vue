@@ -2,99 +2,102 @@
   <div class="register">
     <div class="back-image"></div>
     <Particles></Particles>
-    <Particles></Particles>
     <div class="content">
       <div>
-        <el-input v-model="userName"
-          @focus="focusUserName"
-          @blur="blurUserName"
+        <Input v-model="userName"
+          @on-focus="focusUserName"
+          @on-blur="blurUserName"
           @input.native="changeUserName"
           :class="{'error': userNameError}"
           clearable
-          placeholder="请输入用户名"></el-input>
+          size="large"
+          placeholder="请输入用户名"></Input>
       </div>
-      <div>
-        <el-input v-model="password"
-          @focus="focusPwd"
-          @blur="blurPwd"
+      <div style="position:relative;">
+        <Input v-model="password"
+          @on-focus="focusPwd"
+          @on-blur="blurPwd"
           @input.native="changePwd"
           :class="{'error': pwdError}"
           :type="inputType"
           clearable
+          size="large"
           placeholder="请输入密码">
-          <i class="el-icon-view input-prefix-icon"
-            slot="prefix"
-            @click="handleIconClick">
-          </i>
-        </el-input>
+        </Input>
+        <Icon :type="inputIcon"
+          class="icon-eye"
+          @click.native="handleIconClick"></Icon>
       </div>
       <div>
-        <el-input v-model="confirmPassword"
-          @focus="focusConfirmPwd"
-          @blur="blurConfirmPwd"
+        <Input v-model="confirmPassword"
+          @on-focus="focusConfirmPwd"
+          @on-blur="blurConfirmPwd"
           @input.native="changeConfirmPwd"
           :class="{'error': confrimPwdError}"
           :type="inputType"
           clearable
-          placeholder="请再次输入密码"></el-input>
+          size="large"
+          placeholder="请再次输入密码"></Input>
       </div>
       <div>
-        <el-button type="primary"
+        <Button type="primary"
           :disabled="disabled"
           :loading="loading"
           @click="register"
-          style="width: 100%;">注册</el-button>
+          size="large"
+          style="width: 100%;">注册</Button>
       </div>
       <div class="tip">
         <!-- 用户名注册提示 -->
         <div v-show="showUserTip"
           class="user-tip">
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': userNameNotEmpty}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': userNameNotEmpty}"></Icon>
             用户名不能为空</div>
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': userNameLength}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': userNameLength}"></Icon>
             用户名不少于两位</div>
         </div>
         <!-- 密码相关提示 -->
         <div v-show="showPwdTip"
           class="pwd-tip">
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': pwdLength}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': pwdLength}"></Icon>
             密码不少于6位</div>
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': pwdContainCUppercase}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': pwdContainCUppercase}"></Icon>
             包含一个大写英文</div>
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': pwdContainCSepcialChar}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': pwdContainCSepcialChar}"></Icon>
             包含一个特殊字符</div>
         </div>
         <!-- 确认密码相关提示 -->
         <div v-show="showConfirmPwdTip"
           class="pwd-tip">
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': confimrPwdLength}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': confimrPwdLength}"></Icon>
             密码不少于6位</div>
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': confimrPwdContainCUppercase}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': confimrPwdContainCUppercase}"></Icon>
             包含一个大写英文</div>
           <div>
-            <i class="el-icon-circle-check"
-              :class="{'success': confimrPwdContainCSepcialChar}"></i>
+            <Icon type="checkmark-circled"
+              :class="{'success': confimrPwdContainCSepcialChar}"></Icon>
             包含一个特殊字符</div>
         </div>
         <!-- 密码不一致 -->
         <div v-show="!passwordSame&& !first"
           style="color: #f56c6c;">
-          <i class="el-icon-circle-close"></i>
-          密码不一致</div>
+          <Icon type="close-circled"></Icon>
+          密码不一致
+        </div>
       </div>
     </div>
   </div>
@@ -112,6 +115,7 @@ export default {
     return {
       //      disabled: true,
       inputType: 'password',
+      inputIcon: 'ios-eye-outline',
       loading: false,
       first: true,
       // 用户名相关
@@ -148,17 +152,14 @@ export default {
       );
     },
     passwordSame() {
-      return !(
+      return (
         this.password !== '' &&
         this.confirmPassword !== '' &&
-        this.password !== this.confirmPassword
+        this.password === this.confirmPassword
       );
     },
   },
   methods: {
-    hanldeFunction(param) {
-      console.log(param);
-    },
     initTip() {
       this.showUserTip = false;
       this.showPwdTip = false;
@@ -232,17 +233,18 @@ export default {
     handleIconClick() {
       if (this.inputType === 'password') {
         this.inputType = 'text';
+        this.inputIcon = 'ios-eye';
       } else {
         this.inputType = 'password';
+        this.inputIcon = 'ios-eye-outline';
       }
     },
     register() {
       this.loading = true;
       register(this.userName, this.password).then(data => {
         if (data.code && data.code === 200) {
-          this.$notify({
-            message: '注册成功',
-            type: 'success',
+          this.$Notice.success({
+            title: '注册成功',
           });
           this.loading = false;
         }
@@ -294,28 +296,32 @@ export default {
         color: $orange;
       }
     }
+
+    .icon-eye {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2em;
+      left: 10px;
+      color: #ffffff;
+      cursor: pointer;
+    }
   }
 }
 </style>
 
 <style lang="scss">
-.register .el-input input {
+.register .ivu-input-wrapper input {
   background-color: rgba(255, 255, 255, 0);
   color: #ffffff;
   text-align: center;
+  // height: 40px;
   /*box-shadow: 0 0px 2px #e4e4e4;*/
 }
-.register .el-input.error {
+.register .ivu-input-wrapper.error {
   input {
     border: 1px solid #f56c6c;
   }
-}
-
-.register i.input-prefix-icon {
-  position: relative;
-  top: 12px;
-  font-size: 18px;
-  left: 3px;
 }
 </style>
 
