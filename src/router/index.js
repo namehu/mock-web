@@ -1,8 +1,5 @@
-import Home from '@/components/Home';
-import Login from '@/components/Login';
-import Register from '@/components/Register';
-import Router from 'vue-router';
 import Vue from 'vue';
+import Router from 'vue-router';
 
 Vue.use(Router);
 
@@ -10,15 +7,23 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: () => import('@/components/Home'),
+      redirect: 'project/list',
+      children: [
+        {
+          path: 'project/list',
+          name: 'projectList',
+          component: () => import('@/components/Project/List.vue'),
+        }
+      ],
     },
     {
       path: '/login',
-      component: Login,
+      component: () => import('@/components/Login'),
     },
     {
       path: '/register',
-      component: Register,
+      component: () => import('@/components/Register'),
     },
   ],
 });

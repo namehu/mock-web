@@ -38,3 +38,11 @@ export const register = (userName, password) => axios({
     password,
   }
 });
+
+export const getProjects = (pageNumber, pageSize) => axios({
+  url: '/api/projects',
+  params: {
+    pageNumber,
+    pageSize,
+  },
+});
