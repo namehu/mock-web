@@ -39,10 +39,10 @@ export const register = (userName, password) => axios({
   }
 });
 
-export const getProjects = (pageNumber, pageSize) => axios({
+export const getProjects = (pageNumber, pageSize, queryParams) => axios({
   url: '/api/projects',
-  params: {
+  params: Object.assign({}, {
     pageNumber,
     pageSize,
-  },
+  }, queryParams),
 });
