@@ -14,6 +14,10 @@ export default new Router({
           path: 'project/list',
           name: 'projectList',
           component: () => import('@/components/Project/List.vue'),
+        },
+        {
+          path: 'project/:id',
+          component: () => import('@/components/Project/Detail.vue'),
         }
       ],
     },

@@ -1,23 +1,35 @@
 <template>
   <div class="home">
     <Layout>
-      <Header class="header">
+      <Header class="header"
+        :style="{'line-height': '48px'}">
+        <Row>
+          <Col span="4">
+          <div class="logo">
+            <Icon type="android-send"></Icon>
+            EASY
+            <span>MOCK</span>
+          </div>
+          </Col>
+          <Col span="20">
+          <Menu width="auto"
+            mode="horizontal"
+            theme="dark"
+            active-name="1"
+            :style="{'height': '48px', 'line-height': '48px'}">
+            <MenuItem name="1"
+              @click.native="$router.push('/project/list')">
+            <Icon type="ios-folder"></Icon>项目列表</MenuItem>
+          </Menu>
+          </Col>
+        </Row>
 
       </Header>
       <Layout class="content"
         :style="{'height': `${contentHeight}px`}">
-        <Sider hide-trigger>
-          <Menu width="auto"
-            theme="dark"
-            active-name="1">
-            <MenuItem name="1">项目列表</MenuItem>
-          </Menu>
-        </Sider>
-        <Layout :style="{padding: '15px'}">
-          <Content :style="{padding: '15px', minHeight: '280px', background: '#fff'}">
-            <router-view/>
-          </Content>
-        </Layout>
+        <Content :style="{'padding': '10px'}">
+          <router-view/>
+        </Content>
       </Layout>
     </Layout>
   </div>
@@ -52,8 +64,19 @@ export default {
   width: 100%;
   height: 48px;
   color: #ffffff;
-  .content {
-    text-align: right;
+  .logo {
+    padding-left: 15px;
+    font-size: 20px;
+    font-weight: 600;
+    span {
+      color: #ff9900;
+    }
+    i {
+      margin-right: 8px;
+      font-size: 25px;
+      position: relative;
+      top: 3px;
+    }
   }
 }
 
