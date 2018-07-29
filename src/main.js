@@ -2,8 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import iView from 'iview';
 import 'iview/dist/styles/iview.css';
-// import 'element-ui/lib/theme-chalk/index.css';
-// import ElementUI from 'element-ui';
 import Vue from 'vue';
 import App from './App';
 import router from './router';
