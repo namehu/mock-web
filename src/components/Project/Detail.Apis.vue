@@ -32,8 +32,7 @@
   </div>
 </template>
 <script>
-import EasyScroll from 'vue-easy-scroll-beta';
-// import VScroll from '../Common/Scroll';
+import EasyScroll from 'vue-easy-scroll';
 
 export default {
   components: { EasyScroll },
